@@ -1,0 +1,311 @@
+/* ========== Utility Classes ========== */
+.container {
+    width: 96%;
+    margin: 10px 2%;
+}
+
+.flex {
+    display: flex;
+}
+
+body {
+    width: 100%;
+    margin: 0;
+    padding: 0;
+    font-size: 1.25rem;
+}
+
+tr {
+    text-align: center;
+}
+/* ========== Utility Classes end ========== */
+
+
+
+/* ========== Header & Navigation ========== */
+.headerWrapper {
+    width: 100%;
+    background: #212529;
+    padding: 8px 0px;
+}
+
+.header {
+    display: grid;
+    width: 96%;
+    margin: 0px 2%;
+    grid-template-columns: 1fr 2fr;
+    grid-template-rows: 1fr;
+    font-size: 2rem;
+}
+
+.headerLogo {
+    margin-top: 2px;
+}
+
+.headerLogo a {
+    color: white;
+    text-decoration: none;
+    font-style: italic;
+    padding: 2px 10px;
+    border-radius: 7px;
+}
+
+.headerLogo a:hover {
+    background: #5c5a5a;
+    font-style: normal;
+    transition: 0.3s;
+}
+
+.headerMenu {
+    display: flex;
+    justify-content: flex-end;
+}
+
+.headerMenu ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    display: flex;
+}
+
+.headerMenu li {
+    list-style: none;
+    margin-right: 7px;
+    background: #323636;
+    padding: 2px 10px;
+    border-radius: 8px;
+    margin-bottom: 5px;
+    position: relative;
+}
+
+.headerMenu li:hover {
+    background: #5c5a5a;
+    font-style: italic;
+    transition: 0.5s;
+}
+
+.headerMenu li a {
+    text-decoration: none;
+    color: white;
+}
+
+/* Dropdown */
+
+.headerMenu .dropdown {
+    position: relative;
+    display: inline-block;
+}
+
+.headerMenu .dropbtn {
+    cursor: pointer;
+}
+
+.headerMenu .dropdown-content {
+    margin-top: 10px;
+    margin-left: -10px;
+    display: none;
+    position: absolute;
+    background: white;/* add kora hoice */
+    border: 1px solid #ccc;/* add kora hoice */
+    z-index: 1000;
+    min-width: 160px;
+    box-shadow: 0px 8px 16px rgba(0, 0, 0, 0.2);
+}
+
+.headerMenu .dropdown-content a {
+    background: #323636;
+    padding: 2px 10px;
+    border-radius: 8px;
+    display: block;
+    color: white;
+    text-decoration: none;
+    margin-bottom: 2px;
+}
+
+.headerMenu .dropdown-content a:hover {
+    background-color: #ddd;
+    color: black;
+}
+
+.headerMenu .dropdown:hover .dropbtn {
+    background-color: #555;
+}
+
+/* ========== Header & Navigation end ========== */
+
+
+
+
+
+/* ========== Table Styles ========== */
+.tabledataWrapper {
+    width: 100%;
+}
+
+
+table#dataTable {
+    width: 92%;
+    margin: auto;
+    font-size: 1.2rem;
+    margin-bottom: 10px;
+    text-align: center;
+    border: 1px solid black;
+    border-collapse: collapse;
+    padding: 5px;
+}
+
+.monthYear {
+    background: #323636;
+    color: white;
+    border: 2px solid black;
+    border-bottom: 3px solid white;
+}
+
+.tableHeading {
+    background: #323636;
+    color: aquamarine;
+    /* border: 2px solid black; bad disi */ 
+}
+
+#dataTable tr th, #dataTable tr td {
+    border: 1px solid black;
+}
+
+/* ========== Table Styles end ========== */
+
+
+
+
+
+/* ========== Income Summary Section With Grid ========== */
+.tDetails {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(185px, 1fr));
+    grid-gap: 5px;
+    width: 96%;
+    margin: 10px 2%;
+    padding: 10px 5px;
+}
+
+.tDetails div {
+  font-size: 13px;
+  padding: 5px;
+}
+
+/* ========== Income Summary Section With Grid end========== */
+
+
+
+
+/* ========== Default: For big Screen ========== */
+.full-text {
+    display: inline;
+}
+
+.short-text {
+    display: none;
+}
+/* ========== Default: For big Screen ========== */
+
+
+
+
+/* ========== Responsive Media Queries ========== */
+@media(max-width: 1000px) {
+    .tDetails {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        grid-column-gap: 15px;
+        grid-row-gap: 5px;
+    }
+
+    .header {
+        font-size: 1.2rem;
+    }
+
+    .headerLogo a { /* ata bad */
+        color: white;
+        text-decoration: none;
+        font-style: italic;
+        padding: 2px 10px;
+    }
+
+    .headerLogo a:hover { /* ata bad */
+        font-size: 1rem;
+    }
+
+    .headerMenu li { /* ata bad */
+        padding: 2px 10px;
+    }
+}
+
+@media(min-width: 999px) {
+    .tDetails div {
+        font-size: 16px;
+    }
+}
+
+@media(max-width: 570px) {
+    body {
+        font-size: 1rem;
+    }
+
+    .header {
+        grid-template-columns: 1fr 1fr;
+    }
+
+    .headerMenu li {
+        margin-bottom: 2px;
+        background: #323636;
+        padding: 2px 10px;
+        border-radius: 8px;
+    }
+
+    /* screen chotto kore dekhabe */
+    .full-text {
+        display: none;
+    }
+
+    .short-text {
+        display: inline;
+    }
+}
+
+
+
+
+/* ========== Helper Classes ========== */
+.selectTable {
+    background: #323636;
+    padding: 6px 10px;
+    border-radius: 8px;
+    color: white;
+    width: fit-content;
+    font-size: larger;
+}
+
+.selectTable span {
+    color: aquamarine;
+}
+
+/* ========== Helper Classes end ========== */
+
+
+
+
+
+/* ========== Color Utility ========== */
+.green { color: green; }
+.lt_green { color: lightgreen; }
+.red { color: red; }
+.black { color: black; }
+
+.bg_aqua { background: aqua; }
+.bg_royalblue { background: royalblue; color: white; }
+.awb { background: antiquewhite !important; }
+.lgb { background: lightgreen !important; }
+.awr { background: antiquewhite !important; color: red !important; }
+.gw { background: green !important; color: white !important; font-weight: 600; }
+.lb { background: lightblue; }
+
+/* ========== Color Utility End ========== */

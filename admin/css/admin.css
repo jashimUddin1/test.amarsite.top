@@ -1,0 +1,174 @@
+table#dataTable{
+	border: 1px solid black;
+    border-collapse: collapse;
+    padding: 5px;
+    width: 92%;
+    margin: auto;
+    margin-bottom: 10px;
+    text-align: center;
+}
+ #dataTable tr th, #dataTable tr td{
+    border: 1px solid black;
+}
+#tDetails{
+	background:yellow;
+	margin-left: 4%;
+}
+.greenWhite{
+background:green;
+color:white;
+}
+.green{
+color:green;
+}
+.red{
+color:red;
+}
+#finishedSalary{
+	display: none;
+}
+
+#success-message {
+    color: green;
+    font-weight: bold;
+    text-align: center;
+  }
+
+  .form-container {
+    display: flex;
+    justify-content: center;
+    margin-bottom: 10px;
+  }
+
+  form#myForm {
+    width: 92%;
+}
+
+.input-field {
+    display: inline-block;
+    margin-bottom: 5px;
+    margin-right: 5px;
+    width: 17%;
+}
+
+input {
+    width: 100%;
+}
+
+input#submitBtn{
+    width: 10%;
+}
+
+.selectTable{
+    background: #323636;
+    padding: 6px 10px;
+    border-radius: 8px;
+    color:white;
+    width: fit-content;
+    font-size: larger;
+    float: left;
+    margin-bottom: 10px!important;
+}
+.selectTable span {
+color: aquamarine;
+}
+
+/* General container padding and margin adjustments for mobile */
+.container {
+    margin: 0 auto;
+}
+
+/* Form container styling */
+.form-container {
+    margin-top: 20px;
+}
+
+/* Mobile adjustments for the input fields and buttons */
+@media only screen and (max-width: 768px) {
+    .form-container .input-field input {
+        width: 100%;
+        margin-bottom: 15px;
+        padding: 10px;
+        font-size: 16px;
+    }
+
+    #submitBtn {
+        width: 100%;
+        font-size: 18px;
+    }
+
+    /* Table adjustments for mobile */
+    .table-responsive {
+        overflow-x: auto;
+    }
+
+    .table {
+        width: 100%;
+        max-width: 100%;
+        margin-bottom: 15px;
+        display: block;
+        overflow-x: auto;
+        white-space: nowrap;
+    }
+
+    .table th,
+    .table td {
+        font-size: 14px;
+        padding: 10px;
+    }
+
+    .alert {
+        font-size: 16px;
+    }
+
+    /* Adjusting the menu on mobile */
+    .navbar-collapse {
+        background-color: #343a40;
+    }
+
+    .navbar-toggler {
+        font-size: 1.25rem;
+    }
+}
+
+
+@media only screen and (max-width: 768px) {
+    .table-responsive {
+        display: block;
+        width: 100%;
+        overflow-x: auto;
+        -webkit-overflow-scrolling: touch;
+    }
+    
+    .table-bordered th, .table-bordered td {
+        white-space: nowrap;
+    }
+    
+    #dataTable thead {
+        display: none; /* Hide table headers on small screens */
+    }
+    tbody#data-table-body {
+        display: grid;
+    }
+    #dataTable tbody tr {
+        display: block;
+        margin-bottom: 10px;
+        width: 100%!important;
+    }
+    
+    #dataTable tbody td {
+        display: flex;
+        justify-content: space-between;
+        padding: 10px 5px;
+        border: 1px solid #ddd;
+        white-space: normal;
+    }
+    
+    #dataTable tbody td:before {
+        content: attr(data-label);
+        font-weight: bold;
+        text-transform: uppercase;
+        margin-right: 10px;
+    }
+}
+
