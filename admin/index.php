@@ -9,11 +9,11 @@ if (!isset($_SESSION['authenticated'])) {
     include "../db/dbcon.php";
 
     $user_id = $_SESSION['auth_user']['id'];
-    $sql = "SELECT defaultRate FROM users WHERE id = ? LIMIT 1";
+    $sql = "SELECT defaultRate, role FROM users WHERE id = ? LIMIT 1";
     $stmt = $con->prepare($sql);
     $stmt->bind_param("i", $user_id);
     $stmt->execute();
-    $stmt->bind_result($defaultRate);
+    $stmt->bind_result($defaultRate, $role);
     $stmt->fetch();
     $stmt->close();
 
@@ -38,12 +38,11 @@ if (!isset($_SESSION['authenticated'])) {
     <div class="row">
         <div class="col-md-12">
             <?php include('includes/session.php'); ?>
-                
+    <?php  echo $role ?>   
             <div class="card-body">             
                 <div class="table-responsive">
                     <?php include 'includes/fetch_for_admin.php'; ?>
                 </div>
-
 
                   <div class="form-container mt-4" >
                     <form id="myForm" style="display: flex; flex-wrap: wrap;" action="save_data.php" method="POST">
