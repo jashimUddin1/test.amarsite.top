@@ -11,7 +11,14 @@
   }
 
   $user_id = $_SESSION["auth_user"]["id"];
+  $user_role = $_SESSION["auth_user"]["role"];
 
+  // যেই user select করা হয়েছে তা দেখার জন্য
+  if ($user_role === "admin" && isset($_GET['user_id'])) {
+      $view_user_id = intval($_GET['user_id']);
+  } else {
+      $view_user_id = $user_id; // Normal user হলে নিজের ID
+  }
   $monthOrder = "'January','February','March','April','May','June','July','August','September','October','November','December'";
   $monthDESC = "'December','November','October','September','August','July','June','May','April','March','February','January'";
 
@@ -66,7 +73,6 @@
   $besic_salary = htmlspecialchars($user_data['basic_salary']);
   $rider_type = htmlspecialchars($user_data['riderType']);
   $oil_cost = htmlspecialchars($user_data['oil_cost']);
-  $user_role = htmlspecialchars($user_data['role']);
 ?>
 
 <!DOCTYPE html>
@@ -103,14 +109,6 @@
 
 <?php include "includes/session.php"; ?>
 
-<?php
-  if($user_role=="admin"){
-    echo $user_role ;
-  }else{
-    echo "Normal user";
-  }
-?>
-
 
 <?php 
   // Admin হলে সব user show করাবো
@@ -125,12 +123,7 @@
       $stmtUsers->close();
   }
 
-  // যেই user select করা হয়েছে তা দেখার জন্য
-  if ($user_role === "admin" && isset($_GET['user_id'])) {
-      $view_user_id = intval($_GET['user_id']);
-  } else {
-      $view_user_id = $user_id; // Normal user হলে নিজের ID
-  }
+
 ?>
 
 <div class="container">
@@ -151,7 +144,7 @@
       <button type="submit">Apply</button>
     </form>
 
-    <p style="margin-top:10px;">Selected User ID: <strong><?= $view_user_id ?></strong></p>
+    <p style="margin-top:10px;">Selected User: <strong><?= htmlspecialchars($user['first_name'] . ' ' . $user['last_name']) . ' ' . $view_user_id ?></strong></p>
   <?php endif; ?>
 </div>
 
