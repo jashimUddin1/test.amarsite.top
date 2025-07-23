@@ -1,4 +1,6 @@
 
+
+
 <?php 
   session_start();
   include("db/dbcon.php");
@@ -16,7 +18,7 @@
   // Month-Year Data Grouped
   $yearMonthData = [];
   $stmt = $con->prepare("SELECT year, month FROM month WHERE user_id = ? ORDER BY year ASC, FIELD(month, $monthOrder)");
-  $stmt->bind_param("i", $user_id);
+  $stmt->bind_param("i", $view_user_id);
   $stmt->execute();
   $result = $stmt->get_result();
   while ($row = $result->fetch_assoc()) {
@@ -29,7 +31,7 @@
   // Latest year & month with day (combined)
   $latestYear = $latestMonth = $month_day = null;
   $stmtLatest = $con->prepare("SELECT year, month, day FROM month WHERE user_id = ? ORDER BY year DESC, FIELD(month, $monthDESC) LIMIT 1");
-  $stmtLatest->bind_param("i", $user_id);
+  $stmtLatest->bind_param("i", $view_user_id);
   $stmtLatest->execute();
   $resultLatest = $stmtLatest->get_result();
   if ($row = $resultLatest->fetch_assoc()) {
@@ -45,7 +47,7 @@
 
   // Fetch day count for selected month/year
   $stmtDay = $con->prepare("SELECT day FROM month WHERE user_id = ? AND month = ? AND year = ? LIMIT 1");
-  $stmtDay->bind_param("iss", $user_id, $month, $year);
+  $stmtDay->bind_param("iss", $view_user_id, $month, $year);
   $stmtDay->execute();
   $resultDay = $stmtDay->get_result();
   if ($row = $resultDay->fetch_assoc()) {
@@ -55,7 +57,7 @@
 
   // User info
   $stmtUser = $con->prepare("SELECT * FROM users WHERE id = ? LIMIT 1");
-  $stmtUser->bind_param("i", $user_id);
+  $stmtUser->bind_param("i", $view_user_id);
   $stmtUser->execute();
   $resultUser = $stmtUser->get_result();
   $user_data = $resultUser->fetch_assoc();
@@ -64,6 +66,7 @@
   $besic_salary = htmlspecialchars($user_data['basic_salary']);
   $rider_type = htmlspecialchars($user_data['riderType']);
   $oil_cost = htmlspecialchars($user_data['oil_cost']);
+  $user_role = htmlspecialchars($user_data['role']);
 ?>
 
 <!DOCTYPE html>
@@ -99,6 +102,62 @@
 </div>
 
 <?php include "includes/session.php"; ?>
+
+<?php
+  if($user_role=="admin"){
+    echo $user_role ;
+  }else{
+    echo "Normal user";
+  }
+?>
+
+
+<?php 
+  // Admin হলে সব user show করাবো
+  $userList = [];
+  if ($user_role === "admin") {
+      $stmtUsers = $con->prepare("SELECT id, first_name, last_name FROM users ORDER BY first_name ASC");
+      $stmtUsers->execute();
+      $resultUsers = $stmtUsers->get_result();
+      while ($row = $resultUsers->fetch_assoc()) {
+          $userList[] = $row;
+      }
+      $stmtUsers->close();
+  }
+
+  // যেই user select করা হয়েছে তা দেখার জন্য
+  if ($user_role === "admin" && isset($_GET['user_id'])) {
+      $view_user_id = intval($_GET['user_id']);
+  } else {
+      $view_user_id = $user_id; // Normal user হলে নিজের ID
+  }
+?>
+
+<div class="container">
+  <h3>
+    Welcome, <?= htmlspecialchars($user_data['first_name'] . ' ' . $user_data['last_name']) ?> (ID: <?= $view_user_id ?>)
+  </h3>
+
+  <?php if ($user_role === 'admin'): ?>
+    <form method="get" action="index.php">
+      <label for="user_id">Select User:</label>
+      <select name="user_id" id="user_id">
+        <?php foreach ($userList as $user): ?>
+          <option value="<?= $user['id'] ?>" <?= ($view_user_id == $user['id']) ? 'selected' : '' ?>>
+            <?= htmlspecialchars($user['first_name'] . ' ' . $user['last_name']) ?> (ID: <?= $user['id'] ?>)
+          </option>
+        <?php endforeach; ?>
+      </select>
+      <button type="submit">Apply</button>
+    </form>
+
+    <p style="margin-top:10px;">Selected User ID: <strong><?= $view_user_id ?></strong></p>
+  <?php endif; ?>
+</div>
+
+
+
+
 
 <div style="margin-top:5px;" class="tabledataWrapper">
   <?php include 'includes/fetch_data.php'; ?>
